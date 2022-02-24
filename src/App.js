@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { getTokenId } from "./contracts/web3";
@@ -50,11 +51,25 @@ function App() {
 
   const TokenList = (res) => {
     return (
-      <tr>
-        <td>
-          <p>{res.tokenId}</p>
-        </td>
-      </tr>
+      <div className="col-sm-4">
+        <div className="tokenImage">
+          <video
+            autoPlay
+            loop
+            muted
+            style={{ width: "250px", height: "250px" }}
+          >
+            <source
+              src="https://ipfs.io/ipfs/QmeZuBBBEMGEzRvLvMHjg7RHa95q6B4LieNzNqeK7vT8eX"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+        <div className="tokenID">
+          <p>Token #{res.tokenId}</p>
+          <p>2 messages</p>
+        </div>
+      </div>
     );
   };
 
@@ -65,22 +80,14 @@ function App() {
           <span>{showAccount ? showAccount : "Connect Wallet"}</span>
         </button>
       </div>
-      <div class="wrapper">
-        <table class="table">
-          <thead>
-            <tr class="row header green">
-              <div class="cell">TokenIDs List</div>
-            </tr>
-          </thead>
-
-          <tbody class="row">
-            {tokenIDs &&
-              tokenIDs.length > 0 &&
-              tokenIDs.map((item, index) => {
-                return <TokenList tokenId={item} key={index} />;
-              })}
-          </tbody>
-        </table>
+      <div className="container">
+        <div className="row">
+          {tokenIDs &&
+            tokenIDs.length > 0 &&
+            tokenIDs.map((item, index) => {
+              return <TokenList tokenId={item} key={index} />;
+            })}
+        </div>
       </div>
     </div>
   );
